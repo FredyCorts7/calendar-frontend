@@ -9,8 +9,13 @@ export const authReducer = (state = initialState, action) => {
     case types.authLogin:
       return {
         ...state,
-        loading: false,
         ...action.payload,
+        loading: false,
+      };
+    case types.authLoaded:
+      return {
+        ...state,
+        loading: false,
       };
     default:
       return state;
