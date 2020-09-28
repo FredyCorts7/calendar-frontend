@@ -10,7 +10,7 @@ import { CalendarModal } from './CalendarModal';
 import 'moment/locale/es';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { uiOpenModal } from '../../actions/ui';
 import { eventSetActive } from '../../actions/event';
 import { AddNewFab } from '../ui/AddNewFab';
@@ -18,21 +18,22 @@ import { AddNewFab } from '../ui/AddNewFab';
 const localizer = momentLocalizer(moment);
 moment.locale('es');
 
-const events = [
-  {
-    title: 'Entrevista con Megaterios',
-    start: moment().toDate(),
-    end: moment().add(2, 'hours').toDate(),
-    bgcolor: '#fafafa',
-    notes: 'Practicar Node y Python',
-    user: {
-      _id: '123',
-      name: 'Fredy',
-    },
-  },
-];
+// const events = [
+//   {
+//     title: 'Entrevista con Megaterios',
+//     start: moment().toDate(),
+//     end: moment().add(2, 'hours').toDate(),
+//     bgcolor: '#fafafa',
+//     notes: 'Practicar Node y Python',
+//     user: {
+//       _id: '123',
+//       name: 'Fredy',
+//     },
+//   },
+// ];
 
 export const CalendarScreen = () => {
+  const { events } = useSelector((state) => state.calendar);
   const dispatch = useDispatch();
 
   const [lastView, setLastView] = useState(
@@ -45,7 +46,6 @@ export const CalendarScreen = () => {
 
   const handleSelect = (event) => {
     dispatch(eventSetActive(event));
-    dispatch(uiOpenModal());
   };
 
   const handleView = (view) => {
