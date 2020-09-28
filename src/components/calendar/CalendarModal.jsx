@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { uiCloseModal } from '../../actions/ui';
+import { eventAdd } from '../../actions/event';
 
 const customStyles = {
   content: {
@@ -86,6 +87,16 @@ export const CalendarModal = () => {
     }
 
     // TODO: save in database
+    dispatch(
+      eventAdd({
+        ...formValues,
+        id: new Date().getTime(),
+        user: {
+          _id: 654,
+          name: 'Camila',
+        },
+      })
+    );
 
     setTitleValid(true);
     closeModal();
