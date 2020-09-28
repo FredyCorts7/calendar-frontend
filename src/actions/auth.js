@@ -82,3 +82,14 @@ export const startLoading = () => {
 const loaded = () => ({
   type: types.authLoaded,
 });
+
+export const startLogout = () => {
+  return (dispatch) => {
+    localStorage.removeItem('token');
+    dispatch(logout());
+  };
+};
+
+const logout = () => ({
+  type: types.authLogout,
+});
