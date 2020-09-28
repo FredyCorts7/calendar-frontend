@@ -54,6 +54,10 @@ export const CalendarScreen = () => {
     };
   };
 
+  const handleSelectSlot = (e) => {
+    dispatch(eventSetActive(null));
+  };
+
   return (
     <div className='calendar-screen'>
       <Navbar />
@@ -69,6 +73,8 @@ export const CalendarScreen = () => {
         onSelectEvent={handleSelect}
         onView={handleView}
         view={lastView}
+        onSelectSlot={handleSelectSlot}
+        selectable={true}
         components={{ event: CalendarEvent }}
       />
 
