@@ -2,6 +2,7 @@ import { fetchWithoutToken, fetchWithToken } from '../helpers/fetch';
 import { types } from '../types/types';
 
 import Swal from 'sweetalert2';
+import { eventClean } from './event';
 
 export const startLogin = (email, password) => {
   return async (dispatch) => {
@@ -87,6 +88,7 @@ export const startLogout = () => {
   return (dispatch) => {
     localStorage.removeItem('token');
     dispatch(logout());
+    dispatch(eventClean());
   };
 };
 
