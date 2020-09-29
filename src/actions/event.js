@@ -36,7 +36,25 @@ export const eventSetActive = (event) => ({
   payload: event,
 });
 
-export const eventUpdated = (event) => ({
+export const eventStartUpdate = (event) => {
+  return async (dispatch) => {
+    try {
+      const res = await fetchWithToken(`event/${event.id}`, event, 'PUT');
+      const body = await res.json();
+
+      if (body.ok) {
+        dispatch(eventUpdated(event));
+        Swal.fire('Success', 'Evento actualizado', 'success');
+      } else {
+        Swal.fire('Error', body.msg, 'error');
+      }
+    } catch (error) {
+      Swal.fire('Error', error, 'error');
+    }
+  };
+};
+
+const eventUpdated = (event) => ({
   type: types.eventUpdated,
   payload: event,
 });
@@ -53,7 +71,6 @@ export const eventStartLoading = () => {
 
       if (body.ok) {
         const events = prepareEvents(body.events);
-        console.log(events);
 
         dispatch(eventLoaded(events));
       }
