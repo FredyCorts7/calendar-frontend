@@ -1,5 +1,6 @@
 import Swal from 'sweetalert2';
 import { fetchWithToken } from '../helpers/fetch';
+import { prepareEvents } from '../helpers/prepareEvents';
 import { types } from '../types/types';
 
 export const eventStartAdd = (event) => {
@@ -51,10 +52,13 @@ export const eventStartLoading = () => {
       const body = await res.json();
 
       if (body.ok) {
-        dispatch(eventLoaded(body.events));
+        const events = prepareEvents(body.events);
+        console.log(events);
+
+        dispatch(eventLoaded(events));
       }
     } catch (error) {
-      Swal.fire('Error', 'Algo ha salido mal', 'error');
+      Swal.fire('Error', error, 'error');
     }
   };
 };
